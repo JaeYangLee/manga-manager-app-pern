@@ -1,8 +1,8 @@
-const mangaManagerModel = require("../model/mangaModel");
+const mangaModel = require("../model/mangaModel");
 
 const getAllManga = async (req, res) => {
   try {
-    const allManga = await mangaManagerModel.getAllManga();
+    const allManga = await mangaModel.getAllManga();
     res.json(allManga);
   } catch (err) {
     console.error("Error Fetching All Manga!", err.message);
@@ -13,7 +13,7 @@ const getAllManga = async (req, res) => {
 const getMangaByID = async (req, res) => {
   try {
     const { manga_id } = req.params;
-    const oneManga = await mangaManagerModel.getMangaByID(manga_id);
+    const oneManga = await mangaModel.getMangaByID(manga_id);
 
     if (!oneManga) {
       res.status(400).json({ error: "GET: Manga Not Found..." });
@@ -29,7 +29,7 @@ const getMangaByID = async (req, res) => {
 const addManga = async (req, res) => {
   try {
     const { title, author, genre, published_year } = req.body;
-    const newManga = await mangaManagerModel.addManga(
+    const newManga = await mangaModel.addManga(
       title,
       author,
       genre,
@@ -46,7 +46,7 @@ const updateManga = async (req, res) => {
   try {
     const { manga_id } = req.params;
     const { title, author, genre, published_year } = req.body;
-    const updatedManga = await mangaManagerModel.updateManga(
+    const updatedManga = await mangaModel.updateManga(
       manga_id,
       title,
       author,
@@ -68,7 +68,7 @@ const updateManga = async (req, res) => {
 const deleteManga = async (req, res) => {
   try {
     const { manga_id } = req.params;
-    const deletedManga = await mangaManagerModel.deleteManga(manga_id);
+    const deletedManga = await mangaModel.deleteManga(manga_id);
     if (!deletedManga) {
       res.status(400).json({ error: "DELETE: Manga Not Found..." });
     } else {
