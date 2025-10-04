@@ -5,6 +5,13 @@ const getAllManga = async () => {
   return result.rows;
 };
 
+const getMangaByID = async (manga_id) => {
+  const result = await pool.query("SELECT * FROM manga WHERE manga_id = $1", [
+    manga_id,
+  ]);
+  return result.rows[0];
+};
+
 const addManga = async (title, author, genre, published_year) => {
   const result = await pool.query(
     "INSERT INTO manga(title, author, genre, published_year) VALUES ( $1, $2, $3, $4 ) RETURNING *",
@@ -31,6 +38,7 @@ const deleteManga = async (manga_id) => {
 
 module.exports = {
   getAllManga,
+  getMangaByID,
   addManga,
   updateManga,
   deleteManga,

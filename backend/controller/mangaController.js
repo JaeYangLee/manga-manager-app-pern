@@ -1,4 +1,4 @@
-const mangaManagerModel = require("../model/mangaManagerModel");
+const mangaManagerModel = require("../model/mangaModel");
 
 const getAllManga = async (req, res) => {
   try {
@@ -6,7 +6,23 @@ const getAllManga = async (req, res) => {
     res.json(allManga);
   } catch (err) {
     console.error("Error Fetching All Manga!", err.message);
-    res.status(500).json({ error: "Server Error GET!" });
+    res.status(500).json({ error: "GET: Server Error!" });
+  }
+};
+
+const getMangaByID = async (req, res) => {
+  try {
+    const { manga_id } = req.params;
+    const oneManga = await mangaManagerModel.getMangaByID(manga_id);
+
+    if (!oneManga) {
+      res.status(400).json({ error: "GET: Manga Not Found..." });
+    }
+
+    res.json(oneManga);
+  } catch (err) {
+    console.error("Error Fetching A Manga!", err.message);
+    res.status(400).json({ error: "GET: Server Error!" });
   }
 };
 
@@ -22,7 +38,7 @@ const addManga = async (req, res) => {
     res.json(newManga);
   } catch (err) {
     console.error("Error Adding Manga!", err.message);
-    res.status(400).json({ error: "Server Error POST!" });
+    res.status(400).json({ error: "POST: Server Error!" });
   }
 };
 
@@ -39,13 +55,13 @@ const updateManga = async (req, res) => {
     );
 
     if (!updatedManga) {
-      res.status(400).json({ error: "Manga Not Found (PUT)..." });
+      res.status(400).json({ error: "PUT: Manga Not Found..." });
     }
 
     res.json(updatedManga);
   } catch (err) {
     console.error("Server Updating Manga!", err.message);
-    res.status(400).json({ error: "Server Error PUT!" });
+    res.status(400).json({ error: "PUT: Server Error!" });
   }
 };
 
@@ -54,20 +70,19 @@ const deleteManga = async (req, res) => {
     const { manga_id } = req.params;
     const deletedManga = await mangaManagerModel.deleteManga(manga_id);
     if (!deletedManga) {
-      res.status(400).json({ error: "Manga Not Found (DELETE)..." });
+      res.status(400).json({ error: "DELETE: Manga Not Found..." });
     } else {
-      res
-        .status(200)
-        .json({ message: "Manga Successfully Deleted (DELETE)! " });
+      res.status(200).json({ message: "DELETE: Manga Successfully Deleted! " });
     }
   } catch (err) {
     console.error("Error Deleting Manga!", err.message);
-    res.status(400).json({ error: "Server Error DELETE!" });
+    res.status(400).json({ error: "DELETE: Server Error!" });
   }
 };
 
 module.exports = {
   getAllManga,
+  getMangaByID,
   addManga,
   updateManga,
   deleteManga,

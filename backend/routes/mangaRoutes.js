@@ -1,4 +1,4 @@
-const mangaManagerController = require("../controller/mangaManagerController");
+const mangaManagerController = require("../controller/mangaController");
 const express = require("express");
 const router = express.Router();
 

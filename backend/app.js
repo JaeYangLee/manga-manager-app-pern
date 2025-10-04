@@ -1,4 +1,4 @@
-const router = require("../backend/routes/mangaManagerRoutes");
+const router = require("../backend/routes/mangaRoutes");
 const express = require("express");
 const cors = require("cors");
 
