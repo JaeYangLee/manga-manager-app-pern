@@ -30,7 +30,8 @@ const getTrackedMangaByID = async (req, res) => {
 
 const addTrackedManga = async (req, res) => {
   try {
-    const { manga_id, status } = req.body;
+    const { manga_id } = req.params;
+    const { status } = req.body;
     const newTrackedManga = await mangaListModel.addTrackedManga(
       manga_id,
       status
