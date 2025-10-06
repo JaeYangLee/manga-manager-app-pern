@@ -28,18 +28,35 @@ function App() {
     }
   };
 
-  const addManga = async () => {
+  const addManga = async (title, author, genre, published_year) => {
     try {
-      const res = await axios.post("http://localhost:5000/mangas");
+      const res = await axios.post("http://localhost:5000/mangas", {
+        title,
+        author,
+        genre,
+        published_year,
+      });
       setMangas([...mangas, res.data]);
     } catch (err) {
       console.error("POST: Error Adding Manga!", err.message);
     }
   };
 
-  const updateManga = async () => {
+  const updateManga = async (
+    manga_id,
+    title,
+    author,
+    genre,
+    published_year
+  ) => {
     try {
-      const res = await axios.put(`http://localhost:5000/mangas/${manga_id}`);
+      const res = await axios.put(`http://localhost:5000/mangas/${manga_id}`, {
+        manga_id,
+        title,
+        author,
+        genre,
+        published_year,
+      });
       setMangas(
         mangas.map((manga) => (manga.manga_id === manga_id ? res.data : manga))
       );
@@ -48,9 +65,11 @@ function App() {
     }
   };
 
-  const deleteManga = async () => {
+  const deleteManga = async (manga_id) => {
     try {
-      await axios.delete(`http://localhost:5000/mangas/${manga_id}`);
+      await axios.delete(`http://localhost:5000/mangas/${manga_id}`, {
+        manga_id,
+      });
       setMangas(mangas.filter((mangas) => mangas.manga_id !== manga_id));
     } catch (err) {
       console.error("DELETE: Error Deleting Manga!", err.message);
