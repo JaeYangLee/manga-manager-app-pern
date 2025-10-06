@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "./index.css";
 import axios from "axios";
 import MmMangaList from "./assets/MmMangaList";
+import MmNavBar from "./assets/MmNavBar";
 
 function App() {
   const [mangas, setMangas] = useState([]);
@@ -80,10 +81,10 @@ function App() {
     <>
       <div className="w-screen h-screen">
         <header className="flex items-center justify-center font-bold text-2xl p-4">
-          <h1>Manga Manager App</h1>
+          <MmNavBar />
         </header>
 
-        <main>
+        <main className="pt-14">
           <MmMangaList
             mangas={mangas}
             onUpdate={updateManga}
