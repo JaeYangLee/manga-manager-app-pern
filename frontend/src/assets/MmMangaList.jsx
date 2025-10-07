@@ -3,7 +3,7 @@ import MmManga from "./MmManga";
 function MmCatalogPage({ mangas = [], onUpdate, onDelete }) {
   return (
     <div className="flex flex-col items-center justify-center gap-4">
-      <ul>
+      <ul className="flex flex-col items-center justify-center gap-4">
         {mangas.filter === 0 ? (
           <div>
             <p>No Manga Found...</p>
