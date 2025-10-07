@@ -1,7 +1,10 @@
 import { useState } from "react";
+import MmSuccessModal from "./MmSuccessModal";
 
 function MmNewMangaForm({ onAdd, isNewMangaFormOpen, onNewMangaFormClose }) {
+  const [isSuccessModalOpen, setSuccessModalOpen] = useState(false);
   const [title, setTitle] = useState("");
+  const [modalTitleDisplay, setModalTitleDisplay] = useState("");
   const [author, setAuthor] = useState("");
   const [genre, setGenre] = useState("");
   const [published_year, setPublishedYear] = useState("");
@@ -9,8 +12,11 @@ function MmNewMangaForm({ onAdd, isNewMangaFormOpen, onNewMangaFormClose }) {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      onAdd(title, author, genre, published_year);
-      alert("Manga Successfully Added!");
+      await onAdd(title, author, genre, published_year);
+
+      setModalTitleDisplay(title);
+      setSuccessModalOpen(true);
+
       setTitle("");
       setAuthor("");
       setGenre("");
@@ -74,7 +80,7 @@ function MmNewMangaForm({ onAdd, isNewMangaFormOpen, onNewMangaFormClose }) {
                   required
                   value={published_year}
                   onChange={(e) => setPublishedYear(e.target.value)}
-                  type="text"
+                  type="number"
                   placeholder="ie. 1997"
                   className="px-2 text-base font-normal rounded placeholder:text-xs border-1"
                 />
@@ -94,6 +100,17 @@ function MmNewMangaForm({ onAdd, isNewMangaFormOpen, onNewMangaFormClose }) {
           </form>
         </div>
       </div>
+
+      <MmSuccessModal
+        title={"New Manga Added!"}
+        subject={modalTitleDisplay}
+        message={` is now on your manga list!`}
+        isSuccessModalOpen={isSuccessModalOpen}
+        onSuccessModalClose={() => {
+          onNewMangaFormClose();
+          setSuccessModalOpen(false);
+        }}
+      />
     </>
   );
 }
