@@ -80,8 +80,8 @@ function App() {
   return (
     <>
       <div className="w-screen h-screen">
-        <header className="flex items-center justify-center font-bold text-2xl p-4">
-          <MmNavBar />
+        <header className="flex items-center justify-center p-4 text-2xl font-bold">
+          <MmNavBar onAdd={addManga} />
         </header>
 
         <main className="pt-14">
