@@ -1,8 +1,10 @@
 import { useState } from "react";
 import MmDeleteValidator from "./MmDeleteValidator";
+import MmEditMangaForm from "./MmEditMangaForm";
 
 function MmManga({ manga, onUpdate, onDelete }) {
   const [isDeleteValidatorOpen, setDeleteValidor] = useState(false);
+  const [isEditMangaFormOpen, setEditMangaFormOpen] = useState(false);
   return (
     <>
       <div className="p-2 bg-[#fcf5e7] rounded border-1 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.75)]">
@@ -18,7 +20,12 @@ function MmManga({ manga, onUpdate, onDelete }) {
           </section>
 
           <section className="flex flex-row gap-2 text-xs">
-            <button className="px-2 rounded border-1">Edit</button>
+            <button
+              className="px-2 rounded border-1"
+              onClick={() => setEditMangaFormOpen(true)}
+            >
+              Edit
+            </button>
             <button
               className="px-2 rounded border-1"
               onClick={() => setDeleteValidor(true)}
@@ -28,6 +35,12 @@ function MmManga({ manga, onUpdate, onDelete }) {
           </section>
         </li>
       </div>
+
+      <MmEditMangaForm
+        isEditMangaFormOpen={isEditMangaFormOpen}
+        onEditMangaFormClose={() => setEditMangaFormOpen(false)}
+      />
+
       <MmDeleteValidator
         onDelete={onDelete}
         title={`Delete this manga?`}
