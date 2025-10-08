@@ -6,8 +6,11 @@ function MmNavBar({ onAdd }) {
   return (
     <>
       <div className="fixed top-0 flex flex-row  justify-between w-screen gap-2 p-2 text-xs bg-[#fcf5e7] z-60 h-14 px-2 item-center border-b-3 border-[#2c2f29]">
-        <h1 className="text-2xl text-[#2c2f29] border-1 px-2 rounded bg-[#ffb19d] font-bold shadow-[2px_2px_0px_0px_rgba(0,0,0,0.75)] text-center">
+        <h1 className="md:hidden text-2xl text-[#2c2f29] border-1 px-2 rounded bg-[#ffb19d] font-bold shadow-[2px_2px_0px_0px_rgba(0,0,0,0.75)] text-center">
           MM<span className="text-[#fcf5e7]">*</span>
+        </h1>
+        <h1 className="hidden md:flex text-2xl text-[#2c2f29] border-1 px-2 rounded bg-[#ffb19d] font-bold shadow-[2px_2px_0px_0px_rgba(0,0,0,0.75)] text-center">
+          MangaManager<span className="text-[#fcf5e7]">*</span>
         </h1>
         <section className="flex flex-row items-center justify-center gap-2">
           <input

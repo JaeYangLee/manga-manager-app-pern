@@ -50,7 +50,7 @@ function MmSuccessModal({
             </div>
           </div>
 
-          <section className="flex items-center justify-center p-2 flex-center">
+          <div className="flex items-center justify-center p-2 flex-center">
             <button
               type="button"
               onClick={onSuccessModalClose}
@@ -58,7 +58,7 @@ function MmSuccessModal({
             >
               Okay
             </button>
-          </section>
+          </div>
         </div>
       </div>
     </>
