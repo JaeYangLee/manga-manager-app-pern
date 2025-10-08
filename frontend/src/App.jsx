@@ -79,7 +79,7 @@ function App() {
 
   return (
     <>
-      <div className="w-screen h-screen">
+      <div className="w-screen h-screen font-mono">
         <header className="flex items-center justify-center p-4 text-2xl font-bold">
           <MmNavBar onAdd={addManga} />
         </header>

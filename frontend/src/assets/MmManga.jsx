@@ -5,7 +5,7 @@ function MmManga({ manga, onUpdate, onDelete }) {
   const [isDeleteValidatorOpen, setDeleteValidor] = useState(false);
   return (
     <>
-      <div className="p-2 bg-white rounded border-1">
+      <div className="p-2 bg-[#fcf5e7] rounded border-1 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.75)]">
         <li className="flex flex-col items-center justify-center gap-2 text-center">
           <section>
             <h1 className="text-lg font-bold">{manga.title}</h1>
