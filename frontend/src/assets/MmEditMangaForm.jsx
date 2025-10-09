@@ -1,9 +1,32 @@
+import { useState } from "react";
+import MmSuccessModal from "./MmSuccessModal";
+
 function MmEditMangaForm({
+  manga,
   onUpdate,
   isEditMangaFormOpen,
   onEditMangaFormClose,
 }) {
+  const [newMangaTitle, setNewMangaTitle] = useState("");
+  const [newAuthor, setNewAuthor] = useState("");
+  const [newGenre, setNewGenre] = useState("");
+  const [newPublishedYear, setNewPublishedYear] = useState("");
+  const [isSuccessModalOpen, setSuccessModalOpen] = useState("");
+
   if (!isEditMangaFormOpen) return null;
+
+  const handleEdit = (e) => {
+    e.preventDefault();
+
+    onUpdate(
+      manga.manga_id,
+      newMangaTitle,
+      newAuthor,
+      newGenre,
+      newPublishedYear
+    );
+    setSuccessModalOpen(true);
+  };
   return (
     <>
       <div
@@ -25,14 +48,15 @@ function MmEditMangaForm({
             </p>
           </header>
 
-          <form className="flex flex-col gap-12 p-2">
+          <form onSubmit={handleEdit} className="flex flex-col gap-12 p-2">
             <section className="flex flex-col gap-4">
               <div className="flex flex-col text-sm font-light">
                 <label className="text-xs">Edit manga title:</label>
                 <input
                   required
                   type="text"
-                  placeholder="ie. One Piece"
+                  placeholder={manga.title}
+                  onChange={(e) => setNewMangaTitle(e.target.value)}
                   className="px-2 py-1 w-full md:w-[30vw] rounded placeholder:text-xs border-1 text-base font-light shadow-[2px_2px_0px_0px_rgba(0,0,0,0.75)]"
                 />
               </div>
@@ -41,7 +65,8 @@ function MmEditMangaForm({
                 <input
                   required
                   type="text"
-                  placeholder="ie. Eiichiro Oda"
+                  placeholder={manga.author}
+                  onChange={(e) => setNewAuthor(e.target.value)}
                   className="px-2 py-1 w-full md:w-[30vw] rounded placeholder:text-xs border-1 text-base font-light shadow-[2px_2px_0px_0px_rgba(0,0,0,0.75)]"
                 />
               </div>
@@ -50,7 +75,8 @@ function MmEditMangaForm({
                 <input
                   required
                   type="text"
-                  placeholder="ie. Adventure"
+                  placeholder={manga.genre}
+                  onChange={(e) => setNewGenre(e.target.value)}
                   className="px-2 py-1 w-full md:w-[30vw] rounded placeholder:text-xs border-1 text-base font-light shadow-[2px_2px_0px_0px_rgba(0,0,0,0.75)]"
                 />
               </div>
@@ -59,7 +85,8 @@ function MmEditMangaForm({
                 <input
                   required
                   type="number"
-                  placeholder="ie. 1997"
+                  placeholder={manga.published_year}
+                  onChange={(e) => setNewPublishedYear(e.target.value)}
                   className="px-2 py-1 w-full md:w-[30vw] rounded placeholder:text-xs border-1 text-base font-light shadow-[2px_2px_0px_0px_rgba(0,0,0,0.75)]"
                 />
               </div>
@@ -80,6 +107,17 @@ function MmEditMangaForm({
           </form>
         </div>
       </div>
+
+      <MmSuccessModal
+        title={"Hell Yeah"}
+        message={"aw"}
+        subject={manga.title}
+        isSuccessModalOpen={isSuccessModalOpen}
+        onSuccessModalClose={() => {
+          onEditMangaFormClose();
+          setSuccessModalOpen(false);
+        }}
+      />
     </>
   );
 }
