@@ -6,14 +6,21 @@ import MmNavBar from "./assets/MmNavBar";
 
 function App() {
   const [mangas, setMangas] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     getAllMangas();
-  }, []);
+  }, [search]);
 
   const getAllMangas = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/mangas");
+      let url = "http://localhost:5000/mangas";
+
+      if (search) {
+        url += `?search=${encodeURIComponent(search)}`;
+      }
+
+      const res = await axios.get(url);
       setMangas(res.data);
     } catch (err) {
       console.error("GET: Error Fetching All Mangas!", err.message);
@@ -86,7 +93,7 @@ function App() {
     <>
       <div className="w-screen h-screen font-mono">
         <header className="flex items-center justify-center text-2xl font-bold">
-          <MmNavBar onAdd={addManga} />
+          <MmNavBar onAdd={addManga} search={search} setSearch={setSearch} />
         </header>
 
         <main className="pt-16">

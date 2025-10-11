@@ -2,7 +2,14 @@ const mangaModel = require("../model/mangaModel");
 
 const getAllManga = async (req, res) => {
   try {
-    const allManga = await mangaModel.getAllManga();
+    const { search } = req.query;
+    let allManga;
+
+    if (search) {
+      allManga = await mangaModel.searchManga(search);
+    } else {
+      allManga = await mangaModel.getAllManga();
+    }
     res.json(allManga);
   } catch (err) {
     console.error("Error Fetching All Manga!", err.message);

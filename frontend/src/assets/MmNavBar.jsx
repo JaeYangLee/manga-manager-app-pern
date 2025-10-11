@@ -1,7 +1,7 @@
 import { useState } from "react";
 import MmNewMangaForm from "./MmNewMangaForm";
 
-function MmNavBar({ onAdd }) {
+function MmNavBar({ onAdd, search, setSearch }) {
   const [isNewMangaFormOpen, setNewMangaFormOpen] = useState(false);
   return (
     <>
@@ -15,6 +15,8 @@ function MmNavBar({ onAdd }) {
         <section className="flex flex-row items-center justify-center gap-2">
           <input
             type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
             placeholder="Search your manga..."
             className="w-[50vw] h-8 border-1 rounded px-3 border-[#2c2f29] placeholder:font-light font-light placeholder:text-xs text-xs  shadow-[#2c2f29]"
           />

@@ -4,9 +4,9 @@ function MmCatalogPage({ mangas = [], onUpdate, onDelete }) {
   return (
     <div className="flex flex-col items-center justify-center gap-4">
       <ul className="flex flex-col items-center justify-center gap-4">
-        {mangas.filter === 0 ? (
-          <div className="flex flex-col items-center justify-center w-screen h-screen">
-            <p>No Manga Found...</p>
+        {mangas.length === 0 ? (
+          <div className="flex flex-col items-center">
+            <p className="text-2xl font-bold">No Manga Found...</p>
           </div>
         ) : (
           mangas.map((mangas) => (

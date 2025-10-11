@@ -44,8 +44,17 @@ async function findAlreadyExisting(title, author, genre, published_year) {
   return result.rows[0];
 }
 
+const searchManga = async (search) => {
+  const result = await pool.query(
+    "SELECT * FROM manga WHERE title ILIKE $1 OR author ILIKE $1 OR genre ILIKE $1 OR CAST(published_year AS TEXT) ILIKE $1 ORDER BY manga_id ASC",
+    [`%${search}%`]
+  );
+  return result.rows;
+};
+
 module.exports = {
   getAllManga,
+  searchManga,
   getMangaByID,
   addManga,
   findAlreadyExisting,
