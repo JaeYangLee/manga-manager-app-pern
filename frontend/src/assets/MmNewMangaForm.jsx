@@ -12,6 +12,16 @@ function MmNewMangaForm({ onAdd, isNewMangaFormOpen, onNewMangaFormClose }) {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
+
+      if (
+        !title.trim() ||
+        !author.trim() ||
+        !genre.trim() ||
+        !published_year.trim()
+      ) {
+        return;
+      }
+
       await onAdd(title, author, genre, published_year);
 
       setModalTitleDisplay(title);
@@ -22,6 +32,7 @@ function MmNewMangaForm({ onAdd, isNewMangaFormOpen, onNewMangaFormClose }) {
       setGenre("");
       setPublishedYear("");
     } catch (err) {
+      alert(err.message);
       console.error("POST: Error Adding Manga!", err.message);
     }
   };

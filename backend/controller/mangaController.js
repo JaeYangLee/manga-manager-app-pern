@@ -48,7 +48,7 @@ const addManga = async (req, res) => {
     );
     res.json(newManga);
   } catch (err) {
-    if (err === "23505") {
+    if (err.code === "23505") {
       return res.status(400).json({ message: "POST: Manga already existing!" });
     }
     console.error("Error Adding Manga!", err.message);

@@ -39,7 +39,12 @@ function App() {
       });
       setMangas([...mangas, res.data]);
     } catch (err) {
+      if (err.response && err.response.status === 400) {
+        throw new Error(err.response.data.message);
+      }
+
       console.error("POST: Error Adding Manga!", err.message);
+      throw new Error("POST: Manga already exists!");
     }
   };
 
