@@ -16,7 +16,7 @@ function MmSuccessModal({
       >
         <div
           onClick={(e) => e.stopPropagation()}
-          className="flex flex-col gap-3 w-full bg-[#fcf5e7] rounded-2xl border-3 border-[#2c2f29] shadow-[#2c2f29] shadow-[5px_5px_0px_0px_rgba(0,0,0,0.75)]"
+          className="flex flex-col gap-3  bg-[#fcf5e7] rounded-2xl border-3 border-[#2c2f29] shadow-[#2c2f29] shadow-[5px_5px_0px_0px_rgba(0,0,0,0.75)]"
         >
           <header className="flex flex-row items-center justify-between gap-12 md:gap-2 px-4 py-1 text-lg border-b-3 border-[#2c2f29] text-[#2c2f29]">
             <h1 className="font-bold opacity-0">WhiteSpace</h1>

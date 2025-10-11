@@ -1,8 +1,10 @@
 import { useState } from "react";
 import MmSuccessModal from "./MmSuccessModal";
+import MmErrorModal from "./MmErrorModal";
 
 function MmNewMangaForm({ onAdd, isNewMangaFormOpen, onNewMangaFormClose }) {
   const [isSuccessModalOpen, setSuccessModalOpen] = useState(false);
+  const [isErrorModalOpen, setErrorModalOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [modalTitleDisplay, setModalTitleDisplay] = useState("");
   const [author, setAuthor] = useState("");
@@ -32,7 +34,7 @@ function MmNewMangaForm({ onAdd, isNewMangaFormOpen, onNewMangaFormClose }) {
       setGenre("");
       setPublishedYear("");
     } catch (err) {
-      alert(err.message);
+      setErrorModalOpen(true);
       console.error("POST: Error Adding Manga!", err.message);
     }
   };
@@ -132,6 +134,14 @@ function MmNewMangaForm({ onAdd, isNewMangaFormOpen, onNewMangaFormClose }) {
           onNewMangaFormClose();
           setSuccessModalOpen(false);
         }}
+      />
+
+      <MmErrorModal
+        title={"Manga already existing!"}
+        subject={title}
+        message={" is already in your catalog!"}
+        isErrorModalOpen={isErrorModalOpen}
+        onErrorModalClose={() => setErrorModalOpen(false)}
       />
     </>
   );

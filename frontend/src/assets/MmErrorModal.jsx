@@ -1,16 +1,15 @@
-import React from "react";
-
-function MmDeleteValidator({
-  onDelete,
+function MmErrorModal({
+  title,
   subject,
-  isDeleteValidatorOpen,
-  onDeleteValidatorClose,
+  message,
+  isErrorModalOpen,
+  onErrorModalClose,
 }) {
-  if (!isDeleteValidatorOpen) return null;
+  if (!isErrorModalOpen) return null;
   return (
     <>
       <div
-        onClick={onDeleteValidatorClose}
+        onClick={onErrorModalClose}
         className="fixed top-0 flex flex-col items-center justify-center w-screen h-screen p-4 z-60 bg-black/50"
       >
         <div
@@ -22,7 +21,7 @@ function MmDeleteValidator({
             <p className="select-none">
               {`◎ ◎`}{" "}
               <span
-                onClick={onDeleteValidatorClose}
+                onClick={onErrorModalClose}
                 className="text-red-500 cursor-pointer"
               >{`◉`}</span>{" "}
             </p>
@@ -34,33 +33,27 @@ function MmDeleteValidator({
               width="16"
               height="16"
               fill="currentColor"
-              className="text-red-500 bi bi-trash3-fill size-12"
+              className="text-red-500 bi bi-exclamation-octagon-fill size-12"
               viewBox="0 0 16 16"
             >
-              <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
+              <path d="M11.46.146A.5.5 0 0 0 11.107 0H4.893a.5.5 0 0 0-.353.146L.146 4.54A.5.5 0 0 0 0 4.893v6.214a.5.5 0 0 0 .146.353l4.394 4.394a.5.5 0 0 0 .353.146h6.214a.5.5 0 0 0 .353-.146l4.394-4.394a.5.5 0 0 0 .146-.353V4.893a.5.5 0 0 0-.146-.353zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
             </svg>
 
             <div className="flex flex-col items-center justify-center text-center text-[#2c2f29] p-2">
-              <h1 className="text-2xl font-bold">Are you sure?</h1>
+              <h1 className="text-2xl font-bold">{title}</h1>
               <p className="px-2 text-base">
-                <span className="text-sm text-red-500">{subject}</span> will be
-                removed from your catalog.
+                <span className="text-sm text-red-500">{subject}</span>
+                {message}
               </p>
             </div>
           </div>
 
           <div className="flex flex-row items-end justify-end gap-2 p-2">
             <button
-              onClick={onDelete}
+              onClick={onErrorModalClose}
               className="px-2 bg-red-500 rounded border-1 border-[#2c2f29] text-[#fcf5e7] shadow-[2px_2px_0px_0px_rgba(0,0,0,0.75)]"
             >
-              Delete
-            </button>
-            <button
-              onClick={onDeleteValidatorClose}
-              className="px-2 rounded border-1 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.75)] opacity-70"
-            >
-              Cancel
+              Okay
             </button>
           </div>
         </div>
@@ -69,4 +62,4 @@ function MmDeleteValidator({
   );
 }
 
-export default MmDeleteValidator;
+export default MmErrorModal;
