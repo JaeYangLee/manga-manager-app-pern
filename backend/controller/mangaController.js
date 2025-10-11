@@ -27,8 +27,19 @@ const getMangaByID = async (req, res) => {
 };
 
 const addManga = async (req, res) => {
+  const { title, author, genre, published_year } = req.body;
+
+  const existing = await mangaModel.findAlreadyExisting(
+    title,
+    author,
+    genre,
+    published_year
+  );
+  if (existing) {
+    return res.status(400).json({ message: "POST: Manga already existing!" });
+  }
+
   try {
-    const { title, author, genre, published_year } = req.body;
     const newManga = await mangaModel.addManga(
       title,
       author,
@@ -37,6 +48,9 @@ const addManga = async (req, res) => {
     );
     res.json(newManga);
   } catch (err) {
+    if (err === "23505") {
+      return res.status(400).json({ message: "POST: Manga already existing!" });
+    }
     console.error("Error Adding Manga!", err.message);
     res.status(400).json({ error: "POST: Server Error!" });
   }
