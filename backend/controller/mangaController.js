@@ -112,7 +112,14 @@ const uploadMangaCover = async (req, res) => {
     }
 
     const coverPath = file.filename;
-    const updatedManga = await mangaModel.uploadMangaCover(manga_id, coverPath);
+    const uploadedMangaCover = await mangaModel.updateManga(
+      manga_id,
+      coverPath
+    );
+    res.json({
+      message: "POST: Upload Success!",
+      data: uploadedMangaCover,
+    });
   } catch (err) {
     console.error("POST: Error Uploading Manga Cover!", err.message);
     res.status(400).json({ error: "POST: Server Error!" });
