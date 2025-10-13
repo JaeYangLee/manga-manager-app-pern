@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import axios from "axios";
 import MmMangaList from "../src/pages/MmMangaList";
-import MmMangaTracker from "../src/pages/MmMangaTracker";
 import MmNavBar from "./assets/MmNavBar";
-import MmPageButtons from "./assets/MmPageButtons";
+
 import "./index.css";
 
 function App() {
@@ -95,29 +94,17 @@ function App() {
   return (
     <>
       <div className="w-screen h-screen font-mono">
-        <Router>
-          <header className="flex items-center justify-center text-2xl font-bold">
-            <MmNavBar onAdd={addManga} search={search} setSearch={setSearch} />
-            <MmPageButtons />
-          </header>
+        <header className="flex items-center justify-center text-2xl font-bold">
+          <MmNavBar onAdd={addManga} search={search} setSearch={setSearch} />
+        </header>
 
-          <main>
-            <Routes>
-              <Route
-                exact
-                path="/"
-                element={
-                  <MmMangaList
-                    mangas={mangas}
-                    onUpdate={updateManga}
-                    onDelete={deleteManga}
-                  />
-                }
-              ></Route>
-              <Route path="/mangaTracker" element={<MmMangaTracker />}></Route>
-            </Routes>
-          </main>
-        </Router>
+        <main className="pt-16">
+          <MmMangaList
+            mangas={mangas}
+            onUpdate={updateManga}
+            onDelete={deleteManga}
+          />
+        </main>
       </div>
     </>
   );
