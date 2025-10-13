@@ -29,15 +29,6 @@ function App() {
     }
   };
 
-  const getMangaById = async () => {
-    try {
-      const res = await axios.get("http://localhost:5000/mangas");
-      setMangas(res.data);
-    } catch (err) {
-      console.error("GET: Error Fetching Manga By Id!", err.message);
-    }
-  };
-
   const addManga = async (title, author, genre, published_year) => {
     try {
       const res = await axios.post("http://localhost:5000/mangas", {
@@ -54,6 +45,27 @@ function App() {
 
       console.error("POST: Error Adding Manga!", err.message);
       throw new Error("POST: Manga already exists!");
+    }
+  };
+
+  const updateMangaCover = async (manga_id, cover_image) => {
+    try {
+      const formData = new FormData();
+      formData.append("cover_image", coverImageFile);
+
+      const res = await axios.post(
+        `http://localhost:5000/mangas/${manga_id}/uploads`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      console.log("POST: Upload Success!", res.data);
+    } catch (err) {
+      console.error("PUT: Error Uploading Manga Cover!", err.message);
     }
   };
 
