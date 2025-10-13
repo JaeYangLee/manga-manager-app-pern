@@ -101,10 +101,29 @@ const deleteManga = async (req, res) => {
   }
 };
 
+// function for uploading cover images that I've practiced.
+const uploadMangaCover = async (req, res) => {
+  try {
+    const { manga_id } = req.params;
+    const file = req.file;
+
+    if (!file) {
+      return res.status(400).json({ error: "POST: No File Uploaded!" });
+    }
+
+    const coverPath = file.filename;
+    const updatedManga = await mangaModel.uploadMangaCover(manga_id, coverPath);
+  } catch (err) {
+    console.error("POST: Error Uploading Manga Cover!", err.message);
+    res.status(400).json({ error: "POST: Server Error!" });
+  }
+};
+
 module.exports = {
   getAllManga,
   getMangaByID,
   addManga,
   updateManga,
   deleteManga,
+  uploadMangaCover,
 };
