@@ -52,6 +52,15 @@ const searchManga = async (search) => {
   return result.rows;
 };
 
+//function for uploading cover image for a manga
+const updateMangaCover = async (manga_id, cover_image) => {
+  const result = await pool.query(
+    "UPDATE manga SET cover_image = $1 WHERE manga_id = $2 RETURNING *",
+    [cover_image, manga_id]
+  );
+  return result.rows[0];
+};
+
 module.exports = {
   getAllManga,
   searchManga,
@@ -59,5 +68,6 @@ module.exports = {
   addManga,
   findAlreadyExisting,
   updateManga,
+  updateMangaCover,
   deleteManga,
 };
