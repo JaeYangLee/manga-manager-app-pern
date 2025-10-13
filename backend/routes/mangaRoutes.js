@@ -30,11 +30,6 @@ router.post(
   upload.single("cover_image"),
   mangaController.uploadMangaCover
 );
-router.put(
-  "/:manga_id",
-  upload.single("cover_image"),
-  mangaController.updateManga
-);
 router.delete("/:manga_id", mangaController.deleteManga);
 
 router.get("/:manga_id/list", mangaListController.getAllTrackedManga);

@@ -20,16 +20,9 @@ const addManga = async (title, author, genre, published_year) => {
   return result.rows[0];
 };
 
-const updateManga = async (
-  manga_id,
-  title,
-  author,
-  genre,
-  published_year,
-  cover_image
-) => {
+const updateManga = async (manga_id, title, author, genre, published_year) => {
   const result = await pool.query(
-    "UPDATE manga SET title = $1, author = $2, genre = $3, published_year = $4 , cover_image = $5 WHERE manga_id = $6 RETURNING *",
+    "UPDATE manga SET title = $1, author = $2, genre = $3, published_year = $4 WHERE manga_id = $6 RETURNING *",
     [title, author, genre, published_year, cover_image, manga_id]
   );
   return result.rows[0];

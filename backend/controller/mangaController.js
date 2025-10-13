@@ -112,7 +112,7 @@ const uploadMangaCover = async (req, res) => {
     }
 
     const coverPath = file.filename;
-    const uploadedMangaCover = await mangaModel.updateManga(
+    const uploadedMangaCover = await mangaModel.updateMangaCover(
       manga_id,
       coverPath
     );
