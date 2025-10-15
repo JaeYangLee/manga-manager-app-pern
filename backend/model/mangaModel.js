@@ -36,10 +36,10 @@ const deleteManga = async (manga_id) => {
   return result.rows[0];
 };
 
-async function findAlreadyExisting(title, author, genre, published_year) {
+async function findAlreadyExisting(title) {
   const result = await pool.query(
-    "SELECT * FROM manga WHERE title = $1 OR author = $2 OR genre = $3 OR published_year = $4 LIMIT 1",
-    [title, author, genre, published_year]
+    "SELECT * FROM manga WHERE title = $1LIMIT 1",
+    [title]
   );
   return result.rows[0];
 }

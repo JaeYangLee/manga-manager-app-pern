@@ -36,12 +36,7 @@ const getMangaByID = async (req, res) => {
 const addManga = async (req, res) => {
   const { title, author, genre, published_year } = req.body;
 
-  const existing = await mangaModel.findAlreadyExisting(
-    title,
-    author,
-    genre,
-    published_year
-  );
+  const existing = await mangaModel.findAlreadyExisting(title, author);
   if (existing) {
     return res.status(400).json({ message: "POST: Manga already existing!" });
   }

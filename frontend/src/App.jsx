@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
-
 import axios from "axios";
 import MmMangaList from "../src/pages/MmMangaList";
 import MmNavBar from "./assets/MmNavBar";
-
 import "./index.css";
 
 function App() {
