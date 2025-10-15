@@ -49,7 +49,7 @@ function App() {
   const updateMangaCover = async (manga_id, cover_image) => {
     try {
       const formData = new FormData();
-      formData.append("cover_image", coverImageFile);
+      formData.append("cover_image", cover_image);
 
       const res = await axios.post(
         `http://localhost:5000/mangas/${manga_id}/uploads`,
@@ -62,6 +62,10 @@ function App() {
       );
 
       console.log("POST: Upload Success!", res.data);
+
+      setMangas(
+        mangas.map((manga) => (manga.manga_id === manga_id ? res.data : manga))
+      );
     } catch (err) {
       console.error("PUT: Error Uploading Manga Cover!", err.message);
     }
@@ -72,7 +76,8 @@ function App() {
     title,
     author,
     genre,
-    published_year
+    published_year,
+    cover_image
   ) => {
     try {
       const res = await axios.put(`http://localhost:5000/mangas/${manga_id}`, {
@@ -112,6 +117,7 @@ function App() {
           <MmMangaList
             mangas={mangas}
             onUpdate={updateManga}
+            onUpload={updateMangaCover}
             onDelete={deleteManga}
           />
         </main>

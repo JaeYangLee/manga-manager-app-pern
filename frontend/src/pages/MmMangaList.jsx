@@ -1,6 +1,6 @@
 import MmManga from "../assets/MmManga";
 
-function MmCatalogPage({ mangas = [], onUpdate, onDelete }) {
+function MmCatalogPage({ mangas = [], onUpdate, onUpload, onDelete }) {
   return (
     <div className="flex flex-col items-center justify-center gap-4">
       <ul className="flex flex-col items-center justify-center gap-4">
@@ -14,6 +14,7 @@ function MmCatalogPage({ mangas = [], onUpdate, onDelete }) {
               key={mangas.manga_id}
               manga={mangas}
               onUpdate={onUpdate}
+              onUpload={onUpload}
               onDelete={() => onDelete(mangas.manga_id)}
             />
           ))

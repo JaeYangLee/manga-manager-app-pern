@@ -4,6 +4,7 @@ import MmSuccessModal from "./MmSuccessModal";
 function MmEditMangaForm({
   manga,
   onUpdate,
+  onUpload,
   isEditMangaFormOpen,
   onEditMangaFormClose,
 }) {
@@ -11,6 +12,7 @@ function MmEditMangaForm({
   const [newAuthor, setNewAuthor] = useState("");
   const [newGenre, setNewGenre] = useState("");
   const [newPublishedYear, setNewPublishedYear] = useState("");
+  const [coverImage, setCoverImage] = useState(null);
   const [isSuccessModalOpen, setSuccessModalOpen] = useState("");
 
   if (!isEditMangaFormOpen) return null;
@@ -25,6 +27,11 @@ function MmEditMangaForm({
       newGenre,
       newPublishedYear
     );
+
+    if (coverImage) {
+      onUpload(manga.manga_id, coverImage);
+    }
+
     setSuccessModalOpen(true);
   };
   return (
@@ -87,6 +94,17 @@ function MmEditMangaForm({
                   type="number"
                   placeholder={manga.published_year}
                   onChange={(e) => setNewPublishedYear(e.target.value)}
+                  className="px-2 py-1 w-full md:w-[30vw] rounded placeholder:text-xs border-1 text-base font-light shadow-[2px_2px_0px_0px_rgba(0,0,0,0.75)]"
+                />
+              </div>
+
+              <div className="flex flex-col text-sm font-light">
+                <label className="text-xs">Upload Cover Image:</label>
+                <input
+                  required
+                  type="file"
+                  placeholder={manga.cover_image}
+                  onChange={(e) => setCoverImage(e.target.files[0])}
                   className="px-2 py-1 w-full md:w-[30vw] rounded placeholder:text-xs border-1 text-base font-light shadow-[2px_2px_0px_0px_rgba(0,0,0,0.75)]"
                 />
               </div>

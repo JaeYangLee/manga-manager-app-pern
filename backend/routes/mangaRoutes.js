@@ -25,11 +25,12 @@ router.get("/", mangaController.getAllManga);
 router.get("/:manga_id", mangaController.getMangaByID);
 router.post("/", mangaController.addManga);
 //the route to upload a manga cover image
-router.post(
+router.put(
   "/:manga_id/upload",
   upload.single("cover_image"),
   mangaController.uploadMangaCover
 );
+
 router.delete("/:manga_id", mangaController.deleteManga);
 
 router.get("/:manga_id/list", mangaListController.getAllTrackedManga);

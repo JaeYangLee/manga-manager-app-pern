@@ -2,13 +2,18 @@ import { useState } from "react";
 import MmDeleteValidator from "./MmDeleteValidator";
 import MmEditMangaForm from "./MmEditMangaForm";
 
-function MmManga({ manga, onUpdate, onDelete }) {
+function MmManga({ manga, onUpdate, onUpload, onDelete }) {
   const [isDeleteValidatorOpen, setDeleteValidor] = useState(false);
   const [isEditMangaFormOpen, setEditMangaFormOpen] = useState(false);
   return (
     <>
       <div className="w-full h-full p-2 bg-[#fcf5e7] rounded border-1 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.75)] text-[#2c2f29]">
         <li className="flex flex-col items-center justify-center gap-2 text-center">
+          <img
+            src={`http://localhost:5000/uploads/${manga.cover_image}`}
+            alt={manga.title}
+            className="block object-contain size-72"
+          />
           <section>
             <h1 className="text-lg font-bold">{manga.title}</h1>
           </section>
@@ -39,6 +44,7 @@ function MmManga({ manga, onUpdate, onDelete }) {
       <MmEditMangaForm
         manga={manga}
         onUpdate={onUpdate}
+        onUpload={onUpload}
         isEditMangaFormOpen={isEditMangaFormOpen}
         onEditMangaFormClose={() => setEditMangaFormOpen(false)}
       />
