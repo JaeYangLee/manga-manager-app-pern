@@ -4,6 +4,10 @@ import axios from "axios";
 function App() {
   const [mangas, setMangas] = useState([]);
 
+  useEffect(() => {
+    fetchAllManga();
+  }, []);
+
   const fetchAllManga = async () => {
     try {
       const res = await axios.get(`http://localhost:5000/mangas`);
