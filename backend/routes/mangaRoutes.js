@@ -4,6 +4,7 @@ const router = express.Router();
 const upload = require("../middleware/uploadConfig");
 
 router.get("/", mangaController.getAllManga);
+router.get("/:manga_id", mangaController.getMangaById);
 router.post("/", upload.single("cover_image"), mangaController.addManga);
 router.put(
   "/:manga_id",

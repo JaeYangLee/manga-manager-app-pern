@@ -5,6 +5,13 @@ const getAllManga = async () => {
   return result.rows;
 };
 
+const getMangaById = async (manga_id) => {
+  const result = await pool.query("SELECT * FROM manga WHERE manga_id = $1", [
+    manga_id,
+  ]);
+  return result.rows[0];
+};
+
 const addManga = async (
   title,
   author,
@@ -13,7 +20,7 @@ const addManga = async (
   cover_image = null
 ) => {
   const result = await pool.query(
-    "INSERT INTO manga(title, author, genre, published_year, cover_image) VALUES($1, $2, $3, $4, $5) RETURNING *",
+    "INSERT INTO manga (title, author, genre, published_year, cover_image) VALUES ($1, $2, $3, $4, $5) RETURNING *",
     [title, author, genre, published_year, cover_image]
   );
   return result.rows[0];
@@ -29,6 +36,7 @@ const updateManga = async (
 ) => {
   let query, values;
 
+  // this condition works both when either if the cover image is updated or not.
   if (cover_image) {
     query = `UPDATE manga SET title = $1, author = $2, genre = $3, published_year = $4, cover_image = $5 WHERE manga_id = $6 RETURNING *`;
     values = [title, author, genre, published_year, cover_image, manga_id];
@@ -51,6 +59,7 @@ const deleteManga = async (manga_id) => {
 
 module.exports = {
   getAllManga,
+  getMangaById,
   addManga,
   updateManga,
   deleteManga,

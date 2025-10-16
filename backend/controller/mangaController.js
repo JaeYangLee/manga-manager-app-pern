@@ -1,4 +1,6 @@
 const mangaModel = require("../model/mangaModel");
+const fs = require("fs");
+const path = require("path");
 
 const getAllManga = async (req, res) => {
   try {
@@ -9,6 +11,20 @@ const getAllManga = async (req, res) => {
     });
   } catch (err) {
     console.error("[GET /controller]: Error fetching all manga!", err.message);
+    res.status(500).json({ error: "[GET /controller]: Server error!" });
+  }
+};
+
+const getMangaById = async (req, res) => {
+  try {
+    const { manga_id } = req.params;
+    const manga = await mangaModel.getMangaById(manga_id);
+    res.status(200).json({
+      message: "[GET /controller]: Fetching manga successful!",
+      data: manga,
+    });
+  } catch (err) {
+    console.error("[GET /controller]: Error fetching manga", err.message);
     res.status(500).json({ error: "[GET /controller]: Server error!" });
   }
 };
@@ -39,7 +55,39 @@ const updateManga = async (req, res) => {
   try {
     const { manga_id } = req.params;
     const { title, author, genre, published_year } = req.body;
-    const cover_image = req.file ? req.file.filename : null;
+
+    //Check if manga exists
+    const existingManga = await mangaModel.getMangaById(manga_id);
+
+    if (!existingManga) {
+      return res
+        .status(404)
+        .json({ message: "[PUT /controller]: Manga not found..." });
+    }
+
+    //Handle new cover image upload
+    let newCoverImage = existingManga.cover_image;
+
+    // if there is new file, replace cover image
+    if (req.file) {
+      newCoverImage = req.file.filename;
+
+      const oldImagePath = path.join(
+        "uploads",
+        existingManga.cover_image || ""
+      );
+
+      //Delete old image if replaced
+      if (existingManga.cover_image && fs.existsSync(oldImagePath)) {
+        try {
+          await fs.promises.unlink(oldImagePath);
+        } catch (err) {
+          console.warn(
+            `[PUT /controller]: Failed to delete old cover image (${existingManga.cover_image}): ${err.message}`
+          );
+        }
+      }
+    }
 
     const updatedManga = await mangaModel.updateManga(
       manga_id,
@@ -47,7 +95,7 @@ const updateManga = async (req, res) => {
       author,
       genre,
       published_year,
-      cover_image
+      newCoverImage
     );
     res.status(200).json({
       message: "[PUT /controller]: Update successful!",
@@ -91,6 +139,7 @@ const deleteManga = async (req, res) => {
 
 module.exports = {
   getAllManga,
+  getMangaById,
   addManga,
   updateManga,
   deleteManga,
