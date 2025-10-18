@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import MmNavBar from "./components/MmNavBar";
 import MmMangaList from "./components/MmMangaList";
+import MmNewMangaForm from "./components/MmNewMangaForm";
 
 function App() {
   const [mangas, setMangas] = useState([]);
@@ -94,9 +95,7 @@ function App() {
 
   const deleteManga = async (manga_id) => {
     try {
-      const res = await axios.delete(
-        `http://localhost:5000/mangas/${manga_id}`
-      );
+      await axios.delete(`http://localhost:5000/mangas/${manga_id}`);
       setMangas((prevMangas) =>
         prevMangas.filter((manga) => manga.manga_id !== manga_id)
       );
@@ -107,11 +106,11 @@ function App() {
 
   return (
     <>
-      <div className="font-mono">
-        <MmNavBar />
+      <div className="font-mono text-[#2d2d26]">
+        <MmNavBar onAdd={addManga} />
 
         <div className="flex flex-col items-center justify-center pt-16">
-          <MmMangaList mangas={mangas} />
+          <MmMangaList mangas={mangas} onDelete={deleteManga} />
         </div>
       </div>
     </>
