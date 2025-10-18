@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import MmNavBar from "./components/MmNavBar";
+import MmMangaList from "./components/MmMangaList";
 
 function App() {
   const [mangas, setMangas] = useState([]);
@@ -11,7 +13,7 @@ function App() {
   const fetchAllManga = async () => {
     try {
       const res = await axios.get(`http://localhost:5000/mangas`);
-      setMangas(res.data);
+      setMangas(res.data.data);
     } catch (err) {
       console.error("[GET /fronted]: Error fetching all mangas!", err.message);
     }
@@ -106,7 +108,8 @@ function App() {
   return (
     <>
       <div>
-        <h1>Hello World!</h1>
+        <MmNavBar />
+        <MmMangaList mangas={mangas} />
       </div>
     </>
   );
