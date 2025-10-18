@@ -1,11 +1,16 @@
 import MmManga from "./MmManga";
 
-function MmMangaList({ mangas = [] }) {
+function MmMangaList({ mangas = [], onUpdate, onDelete }) {
   return (
     <>
-      <ul>
+      <ul className="p-2">
         {mangas.map((manga) => (
-          <MmManga key={manga.manga_id} manga={manga} />
+          <MmManga
+            key={manga.manga_id}
+            manga={manga}
+            onUpdate={onUpdate}
+            onDelete={onDelete}
+          />
         ))}
       </ul>
     </>

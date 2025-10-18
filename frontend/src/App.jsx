@@ -107,9 +107,12 @@ function App() {
 
   return (
     <>
-      <div>
+      <div className="font-mono">
         <MmNavBar />
-        <MmMangaList mangas={mangas} />
+
+        <div className="flex flex-col items-center justify-center pt-16">
+          <MmMangaList mangas={mangas} />
+        </div>
       </div>
     </>
   );

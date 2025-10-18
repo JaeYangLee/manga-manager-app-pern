@@ -7,13 +7,15 @@ function MmNavBar({ onAdd }) {
           <h1 className="hidden">Manga Manager App *</h1>
         </div>
 
-        <div className="flex flex-row items-center justify-center gap-4">
+        <div className="flex flex-row items-center justify-center gap-2">
           <input
             type="search"
             placeholder="search..."
-            className="border-1 rounded px-2 w-[40vw]"
+            className="border-1 rounded px-2 w-[40vw] placeholder:text-sm text-sm"
           />
-          <button className="px-2 border-1 rounded">Add</button>
+          <button className="px-2 border-1 rounded-full text-sm shadow-[2px_2px_0px_0px]">
+            +
+          </button>
         </div>
       </div>
     </>
