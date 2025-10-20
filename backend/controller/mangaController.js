@@ -42,8 +42,18 @@ const getMangaById = async (req, res) => {
 };
 
 const addManga = async (req, res) => {
+  const { title, author, genre, published_year } = req.body;
+
+  // logic when new manga is a duplicate or already existing inside the table
+  const existingManga = await mangaModel.findDuplicate(title, author);
+
+  if (existingManga) {
+    return res
+      .status(400)
+      .json({ message: "[POST /controller]: Manga already existing!" });
+  }
+
   try {
-    const { title, author, genre, published_year } = req.body;
     const cover_image = req.file ? req.file.filename : null;
 
     const newManga = await mangaModel.addManga(

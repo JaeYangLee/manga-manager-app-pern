@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import MmSuccessModal from "./MmSuccessModal";
+import MmDuplicateErrorModal from "./MmDuplicateErrorModal";
 
 function MmNewMangaForm({ onAdd, isNewMangaFormOpen, onNewMangaFormClose }) {
   const [title, setTitle] = useState("");
@@ -9,29 +10,36 @@ function MmNewMangaForm({ onAdd, isNewMangaFormOpen, onNewMangaFormClose }) {
   const [published_year, setPublishedYear] = useState("");
   const [cover_image, setCoverImage] = useState(null);
   const [isSuccessModalOpen, setSuccessModalOpen] = useState(false);
+  const [isDuplicateErrorModalOpen, setDuplicateErrorModalOpen] =
+    useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
 
-    if (
-      !title.trim() ||
-      !author.trim() ||
-      !genre.trim() ||
-      !published_year.trim() ||
-      !cover_image
-    ) {
-      return;
+      if (
+        !title.trim() ||
+        !author.trim() ||
+        !genre.trim() ||
+        !published_year.trim() ||
+        !cover_image
+      ) {
+        return;
+      }
+
+      await onAdd(title, author, genre, published_year, cover_image);
+
+      setSuccessModalOpen(true);
+      setTitleDisplay(title);
+
+      setTitle("");
+      setAuthor("");
+      setGenre("");
+      setPublishedYear("");
+      setCoverImage(null);
+    } catch (err) {
+      setDuplicateErrorModalOpen(true);
     }
-
-    onAdd(title, author, genre, published_year, cover_image);
-    setSuccessModalOpen(true);
-
-    setTitleDisplay(title);
-    setTitle("");
-    setAuthor("");
-    setGenre("");
-    setPublishedYear("");
-    setCoverImage(null);
   };
 
   if (!isNewMangaFormOpen) return null;
@@ -146,6 +154,11 @@ function MmNewMangaForm({ onAdd, isNewMangaFormOpen, onNewMangaFormClose }) {
         title={`Manga added successfully!`}
         subject={titleDisplay}
         message={` is now in your catalog!`}
+      />
+
+      <MmDuplicateErrorModal
+        isDuplicateErrorModalOpen={isDuplicateErrorModalOpen}
+        onDuplicateErrorModalClose={() => setDuplicateErrorModalOpen(false)}
       />
     </>
   );

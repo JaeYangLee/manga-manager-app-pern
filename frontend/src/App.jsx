@@ -60,6 +60,11 @@ function App() {
       });
       setMangas([...mangas, res.data.data]);
     } catch (err) {
+      // condition to alert user when a manga already exist by throwing the error from backend to frontend
+      if (err.response && err.response.status === 400) {
+        throw new Error(err.response.data.message);
+      }
+
       console.error("[POST /frontend]: Error adding new manga!", err.message);
     }
   };

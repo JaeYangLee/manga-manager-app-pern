@@ -65,6 +65,14 @@ const deleteManga = async (manga_id) => {
   return result.rows[0] || null;
 };
 
+async function findDuplicate(title, author) {
+  const result = await pool.query(
+    "SELECT * FROM manga WHERE title ILIKE $1 AND author ILIKE $2 ORDER BY manga_id ASC",
+    [title, author]
+  );
+  return result.rows[0];
+}
+
 module.exports = {
   searchManga,
   getAllManga,
@@ -72,4 +80,5 @@ module.exports = {
   addManga,
   updateManga,
   deleteManga,
+  findDuplicate,
 };
