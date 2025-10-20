@@ -5,8 +5,9 @@ function MmMangaList({ mangas = [], onUpdate, onDelete }) {
     <>
       <ul className="flex flex-col flex-wrap items-center justify-center gap-2 p-2 md:gap-4 md:flex-row ">
         {mangas.length === 0 ? (
-          <div>
-            <h1>No Manga Found...</h1>
+          <div className="flex flex-col items-center justify-center gap-2">
+            <h1 className="font-bold text-4xl">{"(´•︵•`)"}</h1>
+            <h1 className="text-lg">No manga found...</h1>
           </div>
         ) : (
           mangas.map((manga) => (

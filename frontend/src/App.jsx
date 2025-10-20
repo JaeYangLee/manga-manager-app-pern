@@ -2,9 +2,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import MmNavBar from "./components/MmNavBar";
 import MmMangaList from "./components/MmMangaList";
-import MmNewMangaForm from "./components/MmNewMangaForm";
-import MmSuccessModal from "./components/MmSuccessModal";
-import MmDeleteValidator from "./components/MmDeleteValidator";
 
 function App() {
   const [mangas, setMangas] = useState([]);
