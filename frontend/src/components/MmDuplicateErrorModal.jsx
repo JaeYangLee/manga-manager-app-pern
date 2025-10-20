@@ -1,4 +1,7 @@
 function MmDuplicateErrorModal({
+  title,
+  subject,
+  message,
   isDuplicateErrorModalOpen,
   onDuplicateErrorModalClose,
 }) {
@@ -7,7 +10,7 @@ function MmDuplicateErrorModal({
   return (
     <>
       <div
-        className="flex items-center justify-center w-screen h-screen bg-black/50 fixed top-0 z-70"
+        className="flex items-center justify-center w-screen h-screen bg-black/50 fixed top-0 z-70 px-4"
         onClick={onDuplicateErrorModalClose}
       >
         <div className="flex flex-col items-center justify-center rounded-lg border-2 bg-[#fcf5e6] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.75)]">
@@ -24,7 +27,7 @@ function MmDuplicateErrorModal({
             </p>
           </header>
 
-          <section className="flex flex-col items-center justify-center gap-2">
+          <section className="flex flex-col items-center justify-center gap-2 text-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -40,12 +43,18 @@ function MmDuplicateErrorModal({
               />
             </svg>
 
-            <h1 className="px-2 font-bold">Manga Already Exist!</h1>
+            <h1 className="px-2 font-bold text-lg">{title}</h1>
+            <p className="text-sm px-4">
+              <span className="text-red-500">{subject}</span>
+              {message}
+            </p>
           </section>
 
           <button
-            onClick={onDuplicateErrorModalClose}
-            className="px-2 border-1 rounded my-2 bg-[#2d2d26] text-white  shadow-[2px_2px_0px_0px_rgba(0,0,0,0.75)]"
+            onClick={() => {
+              onDuplicateErrorModalClose;
+            }}
+            className="px-2 border-1 rounded my-4 bg-[#2d2d26] text-white  shadow-[2px_2px_0px_0px_rgba(0,0,0,0.75)]"
           >
             Okay
           </button>

@@ -26,11 +26,10 @@ function MmNewMangaForm({ onAdd, isNewMangaFormOpen, onNewMangaFormClose }) {
       ) {
         return;
       }
-
+      setTitleDisplay(title);
       await onAdd(title, author, genre, published_year, cover_image);
 
       setSuccessModalOpen(true);
-      setTitleDisplay(title);
 
       setTitle("");
       setAuthor("");
@@ -38,7 +37,13 @@ function MmNewMangaForm({ onAdd, isNewMangaFormOpen, onNewMangaFormClose }) {
       setPublishedYear("");
       setCoverImage(null);
     } catch (err) {
+      setTitleDisplay(title);
       setDuplicateErrorModalOpen(true);
+      setTitle("");
+      setAuthor("");
+      setGenre("");
+      setPublishedYear("");
+      setCoverImage(null);
     }
   };
 
@@ -157,6 +162,9 @@ function MmNewMangaForm({ onAdd, isNewMangaFormOpen, onNewMangaFormClose }) {
       />
 
       <MmDuplicateErrorModal
+        title={`Manga Already exists!`}
+        subject={titleDisplay}
+        message={" is already in your catalog..."}
         isDuplicateErrorModalOpen={isDuplicateErrorModalOpen}
         onDuplicateErrorModalClose={() => setDuplicateErrorModalOpen(false)}
       />
