@@ -115,13 +115,13 @@ function MmEditMangaForm({ manga, onUpdate, isEditFormOpen, onEditFormClose }) {
             </div>
 
             <section className="flex flex-row items-end justify-end w-full gap-2 py-2 pt-4">
-              <button className="px-2 border-1 rounded text-sm bg-blue-500 text-[#fcf5e6] shadow-[2px_2px_0px_0px_rgba(0,0,0,0.75)]">
+              <button className="px-2 border-1 rounded text-sm bg-blue-500 text-[#fcf5e6] shadow-[2px_2px_0px_0px_rgba(0,0,0,0.75)] cursor-pointer">
                 Update
               </button>
               <button
                 type="button"
                 onClick={onEditFormClose}
-                className="opacity-70 px-2 border-1 rounded text-sm shadow-[2px_2px_0px_0px]"
+                className="opacity-70 px-2 border-1 rounded text-sm shadow-[2px_2px_0px_0px] cursor-pointer"
               >
                 Cancel
               </button>

@@ -57,13 +57,13 @@ function MmDeleteValidator({
           <section className="flex flex-row justify-end w-full gap-2 p-4 text-sm">
             <button
               onClick={() => onDelete(manga.manga_id)}
-              className="px-2 text-white bg-red-500 rounded  shadow-[3px_3px_0px_0px_rgba(0,0,0,0.75)]"
+              className="px-2 text-white bg-red-500 rounded  shadow-[3px_3px_0px_0px_rgba(0,0,0,0.75)] cursor-pointer"
             >
               Delete
             </button>
             <button
               onClick={onDeleteValidatorClose}
-              className="px-2 rounded border-1 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.75)]"
+              className="px-2 rounded border-1 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.75)] cursor-pointer"
             >
               Cancel
             </button>

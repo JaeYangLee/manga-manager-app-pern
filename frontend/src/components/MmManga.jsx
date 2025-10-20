@@ -33,13 +33,13 @@ function MmManga({ manga, onUpdate, onDelete }) {
           <section className="flex flex-row items-center justify-center w-full gap-2 p-2">
             <button
               onClick={() => setEditFormOpen(true)}
-              className="text-sm px-2 border-1 rounded shadow-[2px_2px_0px_0px] bg-blue-400"
+              className="text-sm px-2 border-1 rounded shadow-[2px_2px_0px_0px] bg-blue-400 cursor-pointer"
             >
               Edit
             </button>
             <button
               onClick={() => setDeleteValidatorOpen(true)}
-              className="text-sm px-2 border-1 rounded shadow-[2px_2px_0px_0px] bg-red-400"
+              className="text-sm px-2 border-1 rounded shadow-[2px_2px_0px_0px] bg-red-400 cursor-pointer"
             >
               Delete
             </button>

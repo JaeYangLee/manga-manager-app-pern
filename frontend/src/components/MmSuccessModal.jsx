@@ -53,7 +53,7 @@ function MmSuccessModal({
 
         <button
           onClick={onSuccessModalClose}
-          className="px-2 my-4 text-sm rounded border-1 border-[#2d2d26] bg-green-400  shadow-[2px_2px_0px_0px_rgba(0,0,0,0.75)]"
+          className="px-2 my-4 text-sm rounded border-1 border-[#2d2d26] bg-green-400  shadow-[2px_2px_0px_0px_rgba(0,0,0,0.75)] cursor-pointer"
         >
           Okay!
         </button>

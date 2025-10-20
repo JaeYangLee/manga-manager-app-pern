@@ -23,7 +23,7 @@ function MmNavBar({ onAdd }) {
           />
           <button
             onClick={() => setNewMangaFormOpen(true)}
-            className="px-2 border-1 rounded-full text-base shadow-[2px_2px_0px_0px]"
+            className="px-2 border-1 rounded-full text-base shadow-[2px_2px_0px_0px] cursor-pointer"
           >
             +
           </button>
