@@ -6,9 +6,13 @@ function MmNavBar({ onAdd }) {
   return (
     <>
       <div className="flex flex-row items-center justify-between fixed w-screen h-14 z-60 top-0 bg-[#fcf5e6] px-2 border-b-2">
-        <div>
-          <h1>MM*</h1>
-          <h1 className="hidden">Manga Manager App *</h1>
+        <div className="bg-[#fdb3a1] px-2 rounded border-3">
+          <h1 className="font-bold md:hidden">
+            MM<span className="text-white">*</span>
+          </h1>
+          <h1 className="hidden font-bold md:flex">
+            Manga Manager App <span className="text-white">*</span>
+          </h1>
         </div>
 
         <div className="flex flex-row items-center justify-center gap-2">

@@ -8,23 +8,23 @@ function MmManga({ manga, onUpdate, onDelete }) {
             alt={`${manga.title} cover image`}
             className="w-40"
           />
-          <section className="flex flex-col items-center justify-center">
-            <h1 className="text-lg font-bold">{manga.title}</h1>
-            <p className="text-sm">
+          <section className="flex flex-col items-center justify-center text-center">
+            <h1 className="text-lg font-bold truncate w-62">{manga.title}</h1>
+            <p className="text-sm truncate w-62">
               <span>Author: </span>
               {manga.author}
             </p>
-            <p className="text-sm">
+            <p className="text-sm truncate w-62">
               <span>Genre: </span>
               {manga.genre}
             </p>
-            <p className="text-sm">
+            <p className="text-sm truncate w-62">
               <span>Published year: </span>
               {manga.published_year}
             </p>
           </section>
 
-          <section className="w-full flex flex-row items-center justify-center gap-2 p-2">
+          <section className="flex flex-row items-center justify-center w-full gap-2 p-2">
             <button
               onClick={onUpdate}
               className="text-sm px-2 border-1 rounded shadow-[2px_2px_0px_0px] bg-blue-400"
