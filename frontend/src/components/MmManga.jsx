@@ -1,4 +1,8 @@
+import { useState } from "react";
+import MmDeleteValidator from "./MmDeleteValidator";
+
 function MmManga({ manga, onUpdate, onDelete }) {
+  const [isDeleteValidatorOpen, setDeleteValidatorOpen] = useState(false);
   return (
     <>
       <div>
@@ -32,7 +36,7 @@ function MmManga({ manga, onUpdate, onDelete }) {
               Edit
             </button>
             <button
-              onClick={() => onDelete(manga.manga_id)}
+              onClick={() => setDeleteValidatorOpen(true)}
               className="text-sm px-2 border-1 rounded shadow-[2px_2px_0px_0px] bg-red-400"
             >
               Delete
@@ -40,6 +44,16 @@ function MmManga({ manga, onUpdate, onDelete }) {
           </section>
         </li>
       </div>
+
+      <MmDeleteValidator
+        onDelete={onDelete}
+        manga={manga}
+        title={`Are you sure?`}
+        subject={manga.title}
+        message={` well be removed on your catalog...`}
+        isDeleteValidatorOpen={isDeleteValidatorOpen}
+        onDeleteValidatorClose={() => setDeleteValidatorOpen(false)}
+      />
     </>
   );
 }
