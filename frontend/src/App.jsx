@@ -3,9 +3,11 @@ import axios from "axios";
 import MmNavBar from "./components/MmNavBar";
 import MmMangaList from "./components/MmMangaList";
 import MmNewMangaForm from "./components/MmNewMangaForm";
+import MmSuccessModal from "./components/MmSuccessModal";
 
 function App() {
   const [mangas, setMangas] = useState([]);
+  const [isSuccessModalOpen, setSuccessModalOpen] = useState(false);
 
   useEffect(() => {
     fetchAllManga();

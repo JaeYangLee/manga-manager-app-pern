@@ -1,15 +1,14 @@
 import React, { useState } from "react";
+import MmSuccessModal from "./MmSuccessModal";
 
-function MmNewMangaForm({
-  manga,
-  onAdd,
-  isNewMangaFormOpen,
-  onNewMangaFormClose,
-}) {
+function MmNewMangaForm({ onAdd, isNewMangaFormOpen, onNewMangaFormClose }) {
   const [title, setTitle] = useState("");
+  const [titleDisplay, setTitleDisplay] = useState("");
   const [author, setAuthor] = useState("");
   const [genre, setGenre] = useState("");
   const [published_year, setPublishedYear] = useState("");
+  const [cover_image, setCoverImage] = useState(null);
+  const [isSuccessModalOpen, setSuccessModalOpen] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -18,26 +17,35 @@ function MmNewMangaForm({
       !title.trim() ||
       !author.trim() ||
       !genre.trim() ||
-      !published_year.trim()
+      !published_year.trim() ||
+      !cover_image
     ) {
       return;
     }
 
-    onAdd(title, author, genre, published_year);
+    onAdd(title, author, genre, published_year, cover_image);
+    setSuccessModalOpen(true);
+
+    setTitleDisplay(title);
+    setTitle("");
+    setAuthor("");
+    setGenre("");
+    setPublishedYear("");
+    setCoverImage(null);
   };
 
   if (!isNewMangaFormOpen) return null;
   return (
     <>
       <div
-        className="flex flex-col items-center justify-center bg-black/60 fixed w-screen h-screen top-0 z-70 px-2"
+        className="fixed top-0 flex flex-col items-center justify-center w-screen h-screen px-2 bg-black/60 z-70"
         onClick={onNewMangaFormClose}
       >
         <div
           className="w-72 bg-[#fcf5e6] rounded-lg flex flex-col items-center justify-center border-2 shadow-[4px_4px_0px_0px]"
           onClick={(e) => e.stopPropagation()}
         >
-          <header className="w-full flex flex-row items-center justify-between px-3 py-2 border-b-2">
+          <header className="flex flex-row items-center justify-between w-full px-3 py-2 border-b-2">
             <h1 className="text-sm ">Add new manga</h1>
             <p className="gap-1 text-base">
               ⦾ ⦾
@@ -50,7 +58,7 @@ function MmNewMangaForm({
 
           <form
             onSubmit={handleSubmit}
-            className="p-2 px-4 flex flex-col item-start gap-2"
+            className="flex flex-col gap-2 p-2 px-4 item-start"
           >
             <div>
               <label className="text-sm opacity-80">Enter manga title:</label>
@@ -99,6 +107,17 @@ function MmNewMangaForm({
               />
             </div>
 
+            <div>
+              <label className="text-sm opacity-80">Upload manga cover:</label>
+              <input
+                required
+                onChange={(e) => setCoverImage(e.target.files[0])}
+                type="file"
+                accept="image/*"
+                className="border-1 file:px-2 file:py-1 file:text-sm cursor-pointer text-sm rounded shadow-[2px_2px_0px_0px] w-full "
+              />
+            </div>
+
             <section className="flex flex-row items-end justify-end gap-2 py-2 pt-4">
               <button className="px-2 border-1 rounded text-sm bg-[#2d2d26] text-[#fcf5e6] shadow-[2px_2px_0px_0px_rgba(0,0,0,0.75)]">
                 Add
@@ -114,6 +133,17 @@ function MmNewMangaForm({
           </form>
         </div>
       </div>
+
+      <MmSuccessModal
+        isSuccessModalOpen={isSuccessModalOpen}
+        onSuccessModalClose={() => {
+          setSuccessModalOpen(false);
+          onNewMangaFormClose();
+        }}
+        title={`Manga added successfully!`}
+        subject={titleDisplay}
+        message={` is now in your catalog!`}
+      />
     </>
   );
 }
