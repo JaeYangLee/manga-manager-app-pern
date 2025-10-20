@@ -1,5 +1,13 @@
 const pool = require("../database/database");
 
+const searchManga = async (search) => {
+  const result = await pool.query(
+    "SELECT * FROM manga WHERE (title ILIKE $1 OR author ILIKE $1 OR genre ILIKE $1 OR CAST(published_year AS TEXT) ILIKE $1) ORDER BY manga_id ASC",
+    [`%${search}%`]
+  );
+  return result.rows;
+};
+
 const getAllManga = async () => {
   const result = await pool.query("SELECT * FROM manga");
   return result.rows;
@@ -58,6 +66,7 @@ const deleteManga = async (manga_id) => {
 };
 
 module.exports = {
+  searchManga,
   getAllManga,
   getMangaById,
   addManga,

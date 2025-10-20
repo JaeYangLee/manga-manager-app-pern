@@ -8,14 +8,21 @@ import MmDeleteValidator from "./components/MmDeleteValidator";
 
 function App() {
   const [mangas, setMangas] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     fetchAllManga();
-  }, []);
+  }, [search]);
 
   const fetchAllManga = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/mangas`);
+      let url = `http://localhost:5000/mangas`;
+
+      if (search) {
+        url += `?search=${encodeURIComponent(search)}`;
+      }
+
+      const res = await axios.get(url);
       setMangas(res.data.data);
     } catch (err) {
       console.error("[GET /fronted]: Error fetching all mangas!", err.message);
@@ -109,7 +116,7 @@ function App() {
   return (
     <>
       <div className="font-mono text-[#2d2d26]">
-        <MmNavBar onAdd={addManga} />
+        <MmNavBar onAdd={addManga} search={search} setSearch={setSearch} />
 
         <div className="flex flex-col items-center justify-center pt-16">
           <MmMangaList

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import MmNewMangaForm from "./MmNewMangaForm";
 
-function MmNavBar({ onAdd }) {
+function MmNavBar({ onAdd, search, setSearch }) {
   const [isNewMangaFormOpen, setNewMangaFormOpen] = useState(false);
   return (
     <>
@@ -17,7 +17,9 @@ function MmNavBar({ onAdd }) {
 
         <div className="flex flex-row items-center justify-center gap-2">
           <input
-            type="search"
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
             placeholder="search..."
             className="border-1 rounded px-2 py-1 w-[40vw] placeholder:text-sm text-sm"
           />

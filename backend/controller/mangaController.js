@@ -4,11 +4,23 @@ const path = require("path");
 
 const getAllManga = async (req, res) => {
   try {
-    const allManga = await mangaModel.getAllManga();
-    res.status(200).json({
-      message: "[GET /controller]: Fetching all mangas successful!",
-      data: allManga,
-    });
+    const { search } = req.query;
+    let allManga;
+
+    // search feature
+    if (search) {
+      allManga = await mangaModel.searchManga(search);
+      res.status(200).json({
+        message: "[GET /controller]: Searched manga successful!",
+        data: allManga,
+      });
+    } else {
+      allManga = await mangaModel.getAllManga();
+      res.status(200).json({
+        message: "[GET /controller]: Fetching all mangas successful!",
+        data: allManga,
+      });
+    }
   } catch (err) {
     console.error("[GET /controller]: Error fetching all manga!", err.message);
     res.status(500).json({ error: "[GET /controller]: Server error!" });
