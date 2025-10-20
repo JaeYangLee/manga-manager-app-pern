@@ -47,9 +47,12 @@ function MmNewMangaForm({ onAdd, isNewMangaFormOpen, onNewMangaFormClose }) {
         >
           <header className="flex flex-row items-center justify-between w-full px-3 py-2 border-b-2">
             <h1 className="text-sm ">Add new manga</h1>
-            <p className="gap-1 text-base">
+            <p className="gap-1 text-base select-none">
               ⦾ ⦾
-              <span onClick={onNewMangaFormClose} className="text-base">
+              <span
+                onClick={onNewMangaFormClose}
+                className="text-base cursor-pointer"
+              >
                 {" "}
                 ⦿
               </span>

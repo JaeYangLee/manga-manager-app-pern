@@ -112,7 +112,11 @@ function App() {
         <MmNavBar onAdd={addManga} />
 
         <div className="flex flex-col items-center justify-center pt-16">
-          <MmMangaList mangas={mangas} onDelete={deleteManga} />
+          <MmMangaList
+            mangas={mangas}
+            onUpdate={updateManga}
+            onDelete={deleteManga}
+          />
         </div>
       </div>
     </>

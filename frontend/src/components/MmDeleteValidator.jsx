@@ -19,11 +19,11 @@ function MmDeleteValidator({
           className="flex flex-col items-center justify-center bg-[#fcf5e6] border-1 shadow-[4px_4px_0px_0px] rounded-lg"
         >
           <header className="flex flex-row justify-end w-full border-b-2">
-            <p className="gap-1 px-2 text-base ">
+            <p className="gap-1 px-2 text-base select-none">
               ⦾ ⦾
               <span
                 onClick={onDeleteValidatorClose}
-                className="text-base text-red-500"
+                className="text-base text-red-500 cursor-pointer"
               >
                 {" "}
                 ⦿

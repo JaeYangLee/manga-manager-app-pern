@@ -58,6 +58,8 @@ function MmManga({ manga, onUpdate, onDelete }) {
       />
 
       <MmEditMangaForm
+        manga={manga}
+        onUpdate={onUpdate}
         isEditFormOpen={isEditFormOpen}
         onEditFormClose={() => setEditFormOpen(false)}
       />
