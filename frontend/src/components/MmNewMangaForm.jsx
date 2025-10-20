@@ -58,7 +58,7 @@ function MmNewMangaForm({ onAdd, isNewMangaFormOpen, onNewMangaFormClose }) {
 
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col gap-2 p-2 px-4 item-start"
+            className="flex flex-col items-center gap-2 p-2 px-4"
           >
             <div>
               <label className="text-sm opacity-80">Enter manga title:</label>
@@ -118,7 +118,7 @@ function MmNewMangaForm({ onAdd, isNewMangaFormOpen, onNewMangaFormClose }) {
               />
             </div>
 
-            <section className="flex flex-row items-end justify-end gap-2 py-2 pt-4">
+            <section className="flex flex-row items-end justify-end w-full gap-2 py-2 pt-4">
               <button className="px-2 border-1 rounded text-sm bg-[#2d2d26] text-[#fcf5e6] shadow-[2px_2px_0px_0px_rgba(0,0,0,0.75)]">
                 Add
               </button>
