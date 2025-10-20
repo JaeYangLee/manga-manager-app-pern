@@ -2,7 +2,7 @@ function MmManga({ manga, onUpdate, onDelete }) {
   return (
     <>
       <div>
-        <li className="mb-4 flex flex-col items-center justify-center rounded py-2 px-4 gap-2 border-1 shadow-[4px_4px_0px_0px] bg-[#fcf5e6]">
+        <li className="h-100 mb-4 flex flex-col items-center justify-center rounded py-2 px-4 gap-2 border-1 shadow-[4px_4px_0px_0px] bg-[#fcf5e6]">
           <img
             src={`http://localhost:5000/uploads/${manga.cover_image}`}
             alt={`${manga.title} cover image`}
