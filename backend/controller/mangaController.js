@@ -43,6 +43,7 @@ const getMangaById = async (req, res) => {
 
 const addManga = async (req, res) => {
   const { title, author, genre, published_year } = req.body;
+  console.log("[POST /controller]: Body data =>", req.body);
 
   try {
     const cover_image = req.file ? req.file.filename : null;

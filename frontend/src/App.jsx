@@ -61,12 +61,17 @@ function App() {
       setMangas([...mangas, res.data.data]);
       return { status: "success" };
     } catch (err) {
-      // condition to alert user when a manga already exist by throwing the error from backend to frontend
+      console.error("[POST /frontend]: Error adding new manga", err.message);
+
+      if (err.response) {
+        console.error("Response Data:", err.response.data);
+        console.error("Response Status:", err.response.status);
+      }
+
       if (err.response && err.response.status === 400) {
-        //send an object error instead of throwing a new Error
-        //duplicate manga
         return { status: "duplicate", message: err.response.data.message };
       }
+
       return { status: "error", message: err.message };
     }
   };
