@@ -14,37 +14,39 @@ function MmNewMangaForm({ onAdd, isNewMangaFormOpen, onNewMangaFormClose }) {
     useState(false);
 
   const handleSubmit = async (e) => {
-    try {
-      e.preventDefault();
+    e.preventDefault();
 
-      if (
-        !title.trim() ||
-        !author.trim() ||
-        !genre.trim() ||
-        !published_year.trim() ||
-        !cover_image
-      ) {
-        return;
-      }
-      setTitleDisplay(title);
-      await onAdd(title, author, genre, published_year, cover_image);
-
-      setSuccessModalOpen(true);
-
-      setTitle("");
-      setAuthor("");
-      setGenre("");
-      setPublishedYear("");
-      setCoverImage(null);
-    } catch (err) {
-      setTitleDisplay(title);
-      setDuplicateErrorModalOpen(true);
-      setTitle("");
-      setAuthor("");
-      setGenre("");
-      setPublishedYear("");
-      setCoverImage(null);
+    if (
+      !title.trim() ||
+      !author.trim() ||
+      !genre.trim() ||
+      !published_year.trim() ||
+      !cover_image
+    ) {
+      return;
     }
+    setTitleDisplay(title);
+    const result = await onAdd(
+      title,
+      author,
+      genre,
+      published_year,
+      cover_image
+    );
+
+    if (result.status === "success") {
+      setSuccessModalOpen(true);
+    } else if (result.status === "duplicate") {
+      setDuplicateErrorModalOpen(true);
+    } else {
+      console.error("[POST /frontend]: Unexpected error", result.message);
+    }
+
+    setTitle("");
+    setAuthor("");
+    setGenre("");
+    setPublishedYear("");
+    setCoverImage(null);
   };
 
   if (!isNewMangaFormOpen) return null;

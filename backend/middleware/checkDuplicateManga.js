@@ -6,7 +6,7 @@ const checkDuplicateManga = async (req, res, next) => {
   const { title, author } = req.body;
 
   try {
-    const existing = await mangaModel.findDuplicate({ title, author });
+    const existing = await mangaModel.findDuplicate(title, author);
 
     if (existing) {
       return res.status(400).json({

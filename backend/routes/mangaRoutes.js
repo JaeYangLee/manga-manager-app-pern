@@ -8,8 +8,8 @@ router.get("/", mangaController.getAllManga);
 router.get("/:manga_id", mangaController.getMangaById);
 router.post(
   "/",
-  checkDuplicateManga,
   upload.single("cover_image"),
+  checkDuplicateManga,
   mangaController.addManga
 );
 router.put(
