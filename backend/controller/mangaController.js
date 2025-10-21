@@ -48,6 +48,18 @@ const addManga = async (req, res) => {
   const existingManga = await mangaModel.findDuplicate(title, author);
 
   if (existingManga) {
+    // this condition also denies the cover image bout to be uploaded when the manga already exists.
+    if (req.file) {
+      await fs
+        .unlinkSync(req.file.path)
+        .catch((err) =>
+          console.error(
+            "[POST /controller]: Failed to delete duplicate cover:",
+            err.message
+          )
+        );
+    }
+
     return res
       .status(400)
       .json({ message: "[POST /controller]: Manga already existing!" });
