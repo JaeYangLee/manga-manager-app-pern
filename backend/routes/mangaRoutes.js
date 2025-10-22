@@ -4,7 +4,7 @@ const router = express.Router();
 const upload = require("../middleware/uploadConfig");
 const checkDuplicateManga = require("../middleware/checkDuplicateManga");
 
-router.get("/", mangaController.getAllManga);
+router.get("/", mangaController.getMangaPaginated);
 router.get("/:manga_id", mangaController.getMangaById);
 router.post(
   "/",
