@@ -5,7 +5,7 @@ function MmNavBar({ onAdd, search, setSearch }) {
   const [isNewMangaFormOpen, setNewMangaFormOpen] = useState(false);
   return (
     <>
-      <div className="flex flex-row items-center justify-between fixed w-screen h-14 z-60 top-0 bg-[#fcf5e6] px-2 border-b-2">
+      <div className="flex flex-row items-center justify-between fixed w-screen h-14 z-60 top-0 bg-[#fcf5e6] px-2 lg:px-6 border-b-2">
         <div className="bg-[#fdb3a1] px-2 rounded border-3">
           <h1 className="font-bold md:hidden">
             MM<span className="text-white">*</span>
