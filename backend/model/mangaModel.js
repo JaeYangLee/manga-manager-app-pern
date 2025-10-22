@@ -73,6 +73,27 @@ async function findDuplicate(title, author) {
   return result.rows[0];
 }
 
+const getPaginatedManga = async (page = 1, limit = 8) => {
+  const offset = (page - 1) * limit;
+
+  //Get total count
+  const countResult = await pool.query("SELECT COUNT(*) AS total FROM manga");
+  const total = parseInt(countResult.rows[0].total);
+
+  //Get paginated data
+  const result = await pool.query(
+    "SELECT * FROM manga ORDER BY manga_id ASC LIMIT $1 OFFSET $2",
+    [limit, offset]
+  );
+
+  return {
+    total,
+    totalPages: Math.ceil(total / limit),
+    currentPage: page,
+    data: result.rows,
+  };
+};
+
 module.exports = {
   searchManga,
   getAllManga,
@@ -81,4 +102,5 @@ module.exports = {
   updateManga,
   deleteManga,
   findDuplicate,
+  getPaginatedManga,
 };
