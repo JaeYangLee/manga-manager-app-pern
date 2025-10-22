@@ -6,14 +6,17 @@ import MmMangaList from "./components/MmMangaList";
 function App() {
   const [mangas, setMangas] = useState([]);
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const limit = 8;
 
   useEffect(() => {
     fetchAllManga();
-  }, [search]);
+  }, [search, page]);
 
   const fetchAllManga = async () => {
     try {
-      let url = `http://localhost:5000/mangas`;
+      let url = `http://localhost:5000/mangas?page=${page}&limit=${limit}`;
 
       if (search) {
         url += `?search=${encodeURIComponent(search)}`;
@@ -21,6 +24,7 @@ function App() {
 
       const res = await axios.get(url);
       setMangas(res.data.data);
+      setTotalPages(res.data.totalPages);
     } catch (err) {
       console.error("[GET /fronted]: Error fetching all mangas!", err.message);
     }
@@ -133,6 +137,22 @@ function App() {
             onUpdate={updateManga}
             onDelete={deleteManga}
           />
+
+          <div className="flex flex-row items-center justify-center w-full gap-4 px-4 mb-4">
+            <button
+              onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+              disabled={page === 1}
+              className="border-2 rounded-full px-2 bg-[#fcf5e6] shadow-[2px_2px_0px_0px]"
+            >{`<`}</button>
+            <span className="px-2 border-1 rounded bg-[#fcf5e6] shadow-[2px_2px_0px_0px] text-sm">
+              Page {page} of {totalPages}
+            </span>
+            <button
+              onClick={() => setPage((prev) => Math.max(prev + 1, 1))}
+              disabled={page === totalPages}
+              className="border-2 rounded-full px-2 bg-[#fcf5e6] shadow-[2px_2px_0px_0px]"
+            >{`>`}</button>
+          </div>
         </div>
       </div>
     </>
