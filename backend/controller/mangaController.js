@@ -151,10 +151,28 @@ const deleteManga = async (req, res) => {
   }
 };
 
+const getMangaPaginated = async (req, res) => {
+  try {
+    const { page = 1, limit = 8 } = req.query;
+    const pageNum = parseInt(page, 10);
+    const limitNum = parseInt(limit, 10);
+    const paginated = await mangaModel.getPaginatedManga(pageNum, limitNum);
+
+    res.json({ success: true, ...paginated });
+  } catch (err) {
+    console.error(
+      "[GET /controller]: Error fetching paginated manga!",
+      err.message
+    );
+    res.status(500).json({ error: "[GET /controller]: Server error!" });
+  }
+};
+
 module.exports = {
   getAllManga,
   getMangaById,
   addManga,
   updateManga,
   deleteManga,
+  getMangaPaginated,
 };
