@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import MmNavBar from "./components/MmNavBar";
 import MmMangaList from "./components/MmMangaList";
+import MmFooter from "./components/MmFooter";
 
 function App() {
   const [mangas, setMangas] = useState([]);
@@ -156,6 +157,8 @@ function App() {
             </div>
           )}
         </div>
+
+        <MmFooter />
       </div>
     </>
   );
