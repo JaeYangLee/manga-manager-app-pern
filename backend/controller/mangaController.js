@@ -153,10 +153,14 @@ const deleteManga = async (req, res) => {
 
 const getMangaPaginated = async (req, res) => {
   try {
-    const { page = 1, limit = 8 } = req.query;
+    const { page = 1, limit = 8, search = "" } = req.query;
     const pageNum = parseInt(page, 10);
     const limitNum = parseInt(limit, 10);
-    const paginated = await mangaModel.getPaginatedManga(pageNum, limitNum);
+    const paginated = await mangaModel.getPaginatedManga(
+      pageNum,
+      limitNum,
+      search
+    );
 
     res.json({ success: true, ...paginated });
   } catch (err) {

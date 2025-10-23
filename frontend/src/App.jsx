@@ -19,7 +19,7 @@ function App() {
       let url = `http://localhost:5000/mangas?page=${page}&limit=${limit}`;
 
       if (search) {
-        url += `?search=${encodeURIComponent(search)}`;
+        url += `&search=${encodeURIComponent(search)}`;
       }
 
       const res = await axios.get(url);

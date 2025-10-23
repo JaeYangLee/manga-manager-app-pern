@@ -73,18 +73,40 @@ async function findDuplicate(title, author) {
   return result.rows[0];
 }
 
-const getPaginatedManga = async (page = 1, limit = 8) => {
+//pagination with search feature
+const getPaginatedManga = async (page = 1, limit = 8, search = "") => {
   const offset = (page - 1) * limit;
+  const searchQuery = `%${search}%`;
 
   //Get total count
-  const countResult = await pool.query("SELECT COUNT(*) AS total FROM manga");
-  const total = parseInt(countResult.rows[0].total);
+  let countQuery = "SELECT COUNT(*) AS total FROM manga";
+  let dataQuery = "SELECT * FROM manga";
+  const queryParams = [];
 
-  //Get paginated data
-  const result = await pool.query(
-    "SELECT * FROM manga ORDER BY manga_id ASC LIMIT $1 OFFSET $2",
-    [limit, offset]
+  //if search is not empty, add WHERE conditions
+  const hasSearch = search.trim() !== "";
+  if (hasSearch) {
+    const whereClause =
+      " WHERE (title ILIKE $1 OR author ILIKE $1 OR genre ILIKE $1 OR CAST(published_year AS TEXT) ILIKE $1)";
+    countQuery += whereClause;
+    dataQuery += whereClause;
+    queryParams.push(searchQuery);
+  }
+
+  //Add sorting, limit, and offset
+  dataQuery += ` ORDER BY manga_id ASC LIMIT $${
+    queryParams.length + 1
+  } OFFSET $${queryParams.length + 2}`;
+  queryParams.push(limit, offset);
+
+  //Execute both queries
+  const countResult = await pool.query(
+    countQuery,
+    hasSearch ? [searchQuery] : []
   );
+  const total = parseInt(countResult.rows[0].total, 10) || 0;
+
+  const result = await pool.query(dataQuery, queryParams);
 
   return {
     total,
