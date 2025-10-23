@@ -138,21 +138,23 @@ function App() {
             onDelete={deleteManga}
           />
 
-          <div className="flex flex-row items-center justify-center w-full gap-4 px-4 mb-4">
-            <button
-              onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-              disabled={page === 1}
-              className="border-2 rounded-full px-2 bg-[#fcf5e6] shadow-[2px_2px_0px_0px]"
-            >{`<`}</button>
-            <span className="px-2 border-1 rounded bg-[#fcf5e6] shadow-[2px_2px_0px_0px] text-sm">
-              Page {page} of {totalPages}
-            </span>
-            <button
-              onClick={() => setPage((prev) => Math.max(prev + 1, 1))}
-              disabled={page === totalPages}
-              className="border-2 rounded-full px-2 bg-[#fcf5e6] shadow-[2px_2px_0px_0px]"
-            >{`>`}</button>
-          </div>
+          {totalPages > 0 && (
+            <div className="flex flex-row items-center justify-center w-full gap-4 px-4 mb-4">
+              <button
+                onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+                disabled={page === 1}
+                className="border-2 rounded-full px-2 bg-[#fcf5e6] shadow-[2px_2px_0px_0px]"
+              >{`<`}</button>
+              <span className="px-2 border-1 rounded bg-[#fcf5e6] shadow-[2px_2px_0px_0px] text-sm">
+                Page {page} of {totalPages}
+              </span>
+              <button
+                onClick={() => setPage((prev) => Math.max(prev + 1, 1))}
+                disabled={page === totalPages}
+                className="border-2 rounded-full px-2 bg-[#fcf5e6] shadow-[2px_2px_0px_0px]"
+              >{`>`}</button>
+            </div>
+          )}
         </div>
       </div>
     </>
